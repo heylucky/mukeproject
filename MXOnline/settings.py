@@ -30,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#自定义认证方法，可以邮箱或者用户名登录
 AUTHENTICATION_BACKENDS = (
     'users.views.CustomBackend',
 )
@@ -47,7 +48,8 @@ INSTALLED_APPS = [
     'organization',
     'operation',
     'xadmin',
-    'crispy_forms'
+    'crispy_forms',
+    'captcha',
 ]
 AUTH_USER_MODEL="users.UserProfile"             #自定义user数据模型覆盖django默认的user表，进行重载
 
@@ -68,8 +70,7 @@ ROOT_URLCONF = 'MXOnline.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -140,3 +141,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static'),
 ]
+
+# 发送邮件的参数配置
+EMAIL_HOST = "smtp.sina.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "linlinyue520@sina.com"
+EMAIL_HOST_PASSWORD = "shamo99"
+EMAIL_USE_TLS = False
+EMAIL_FROM = "linlinyue520@sina.com"
