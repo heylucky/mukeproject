@@ -14,13 +14,17 @@ class City(models.Model):
         verbose_name=u'城市'
         verbose_name_plural=verbose_name
 
+    def __unicode__(self):          # 重载unicode方法
+        return self.name
+
 
 class CourseOrg(models.Model):
     name= models.CharField(verbose_name=u'机构名称', max_length=100)
-    desc= models.CharField(verbose_name=u'机构描述', max_length=100)
+    desc= models.TextField(verbose_name=u'机构描述')
+    catagory = models.CharField(verbose_name=u'机构类别',default="pxjg",max_length= 20,choices= (("pxjg",u"培训机构"),("gx","高校"),("gr","个人")))
     click_nums= models.IntegerField(verbose_name=u'点击数', default=0)
     fav_nums = models.IntegerField(verbose_name=u'收藏数', default=0)
-    image = models.ImageField(verbose_name=u'封面图', upload_to="org/%Y/%m")
+    image = models.ImageField(verbose_name=u'logo', upload_to="org/%Y/%m")      # 机构封面logo
     address = models.CharField(verbose_name=u'机构地址',max_length=150)
     city=models.ForeignKey(City,verbose_name=u'所在城市')
 
@@ -28,6 +32,8 @@ class CourseOrg(models.Model):
         verbose_name=u'课程机构'
         verbose_name_plural = verbose_name
 
+    def __unicode__(self):          # 重载unicode方法
+        return self.name
 
 class Teacher(models.Model):
     name=models.CharField(verbose_name=u'机构名称',max_length=100)
