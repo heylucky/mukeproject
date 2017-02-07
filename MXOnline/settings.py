@@ -86,7 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.media',         # 如果不加，会导致template中{{ MEDIA_URL}}无法正常引用相对路径     --bylin
+                'django.core.context_processors.media',         # 如果不加，会导致template中{{ MEDIA_URL}}无法正常引用相对路径 --bylin
             ],
         },
     },

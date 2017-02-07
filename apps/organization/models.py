@@ -27,6 +27,9 @@ class CourseOrg(models.Model):
     image = models.ImageField(verbose_name=u'logo', upload_to="org/%Y/%m")      # 机构封面logo
     address = models.CharField(verbose_name=u'机构地址',max_length=150)
     city=models.ForeignKey(City,verbose_name=u'所在城市')
+    students = models.IntegerField(verbose_name=u'学习人数',default= 0)
+    course_nums = models.IntegerField(verbose_name=u'课程数',default= 0)
+    add_time = models.DateTimeField(default= datetime.now)
 
     class Meta:
         verbose_name=u'课程机构'
@@ -44,8 +47,8 @@ class Teacher(models.Model):
     click_nums = models.IntegerField(u'点击数', default=0)
     fav_nums = models.IntegerField(u'收藏数', default=0)
     add_time=models.DateTimeField(u'添加时间', default=datetime.now)
-    city = models.ForeignKey(City,verbose_name=u'所在城市')
-    org = models.ForeignKey(CourseOrg, verbose_name=u'所在机构')
+    city = models.ForeignKey(City,verbose_name=u'所在城市')         # 外键在数据库中存储为city_id
+    org = models.ForeignKey(CourseOrg, verbose_name=u'所在机构')     # 外键在数据库中存储为org_id
 
     class Meta:
         verbose_name=u'教师'
