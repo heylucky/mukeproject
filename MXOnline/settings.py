@@ -49,9 +49,17 @@ INSTALLED_APPS = [
     'operation',
     'xadmin',
     'crispy_forms',
-    'captcha',
+    'captcha',              # 产生验证码的包
+    'pure_pagination',     # django列表分页功能的包
 ]
 AUTH_USER_MODEL="users.UserProfile"             #自定义user数据模型覆盖django默认的user表，进行重载
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 5,
+    'MARGIN_PAGES_DISPLAYED': 2,
+
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
 
 
 MIDDLEWARE_CLASSES = [
@@ -65,7 +73,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'MXOnline.urls'
+ROOT_URLCONF = 'MXOnline.urls'          # url配置
 
 TEMPLATES = [
     {
