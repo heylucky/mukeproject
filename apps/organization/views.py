@@ -2,21 +2,22 @@
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 
 from .models import CourseOrg,City
-
+from organization.forms import UserAskForm
 
 class OrgView(View):
     """
     课程机构列表功能
     """
     def get(self,request):
-        all_orgs = CourseOrg.objects.all()      # 机构
+        all_orgs = CourseOrg.objects.all()                      # 机构
         hot_orgs = all_orgs.order_by("click_nums")[0:4]     # 按照点击次数排名，取出前4名
-        all_citys = City.objects.all()          # 城市
+        all_citys = City.objects.all()                      # 城市
         # 筛选城市
-        city_id = request.GET.get('city',"")     # 取出从前端获得的城市
-        if city_id:                             # 如果存在city_id
+        city_id = request.GET.get('city',"")                # 取出从前端获得的城市
+        if city_id:                                            # 如果存在city_id
             all_orgs = all_orgs.filter(city_id=int(city_id))        # django 都可以对外键字段进行 XXX_id的形式
 
         # 类别筛选
@@ -24,7 +25,7 @@ class OrgView(View):
         if catagory:
             all_orgs = all_orgs.filter(catagory=catagory)
 
-        sort = request.GET.get('sort')         # 取出从前端获得的学习人数或课程数 students or courses
+        sort = request.GET.get('sort',"")         # 取出从前端获得的学习人数或课程数 students or courses
         if sort:
             if sort =='students':
                 all_orgs = all_orgs.order_by("-students")       # “-”表示倒序
@@ -53,4 +54,13 @@ class OrgView(View):
         })
 
 
+class AddUserAskView(View):
+    """用户添加咨询"""
+    def post(self,request):
+        userask_form = UserAskForm(request.POST)
+        if userask_form.is_valid():
+            user_ask = userask_form.save(commit=True)
+            return HttpResponse("{'status' : 'success'}",content_type='application/json')
+        else:
+            return HttpResponse("{'status':'fail','msg':{0}".format(userask_form.errors))
 

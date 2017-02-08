@@ -28,7 +28,7 @@ class LoginView(View):
 
     def post(self,request):
         login_form=LoginForm(request.POST)
-        if login_form.is_valid():       # 实际是检查_errors是否为空，为空说明正常
+        if login_form.is_valid():       # 实际是检查_errors是否为空，为空说明正常,与数据库对比
             user_name = request.POST.get("username", "")  # 值“”默认是空
             pass_word = request.POST.get("password", "")
             user = authenticate(username=user_name, password=pass_word)  # 形参是固定的不能修改

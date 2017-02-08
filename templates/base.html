@@ -12,7 +12,7 @@
     {% block custom_css %}{% endblock %}            {# 可以用于自定义css样式--bylin #}
     <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
-    {% block custom_js %}{% endblock %}             {# 可以用于自定义js样式 --bylin #}
+
 </head>
 <body>
 <section class="headerwrap ">
@@ -429,6 +429,7 @@
 <script src="{% static 'js/plugins/jquery.scrollLoading.js' %}"  type="text/javascript"></script>
 <script src="{% static 'js/deco-common.js' %}"  type="text/javascript"></script>
 
+{% block custom_js %}       {# 可以用于自定义js样式 --bylin #}
 <script>
     $(function(){
         $('#jsStayBtn').on('click', function(){
@@ -449,8 +450,8 @@
             });
         });
     })
-
 </script>
+{% endblock %}
 
 </body>
 </html>

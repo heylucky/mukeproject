@@ -2,9 +2,12 @@
 __author__ = 'Jack Lin'
 
 from django import forms
-from operation.models import UserAsk
+from operation.models import UserAsk        # 由数据库字段产生form字段
 
-class UserAskForm(forms.Form):
-    name = forms.CharField(required=True,max_length=20,min_length=2)
-    mobile = forms.CharField(required=True,min_length=11,max_length=11)
-    course_name = forms.CharField(required=True,max_length=10,min_length=10)
+
+
+class UserAskForm(forms.ModelForm):
+    # my_form = forms.CharField()       # 可以自定义forms
+    class Meta:
+        model = UserAsk
+        fields = ['name','mobile','course_name']

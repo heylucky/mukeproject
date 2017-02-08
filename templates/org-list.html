@@ -49,7 +49,8 @@
 		<div class="layout">
 			<div class="head">
 				<ul class="tab_header">
-					<li class="{% if sort != 'students' and  sort != 'courses' %}active{% endif %}"><a href="?ct=&city=">全部</a> </li>
+{#					<li class="{% if sort != 'students' and  sort != 'courses' %}active{% endif %}"><a href="?ct=&city=">全部</a> </li>#}
+                    <li class="{% if sort == ''%}active{% endif %}"><a href="?ct=&city=">全部</a> </li>
 {#					<li class=""><a href="?sort=students&ct=&city=">学习人数 &#8595;</a></li>#}
 {#					<li class=""><a href="?sort=courses&ct=&city=">课程数 &#8595;</a></li>#}
                     <li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students">学习人数 &#8595;</a></li>
@@ -168,3 +169,27 @@
 </section>
 {% endblock %}
 
+{% block custom_js %}
+<script>
+    $(function(){
+        $('#jsStayBtn').on('click', function(){
+            $.ajax({
+                cache: false,
+                type: "POST",
+{#                url:"{% url 'org:add_ask' %}",#}
+                 url:"{% url 'add_ask' %}",
+                data:$('#jsStayForm').serialize(),
+                async: true,
+                success: function(data) {
+                    if(data.status == 'success'){
+                        $('#jsStayForm')[0].reset();
+                        alert("提交成功")
+                    }else if(data.status == 'fail'){
+                        $('#jsCompanyTips').html(data.msg)
+                    }
+                },
+            });
+        });
+    })
+</script>
+{% endblock %}
