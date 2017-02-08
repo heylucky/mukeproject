@@ -176,8 +176,8 @@
             $.ajax({
                 cache: false,
                 type: "POST",
-{#                url:"{% url 'org:add_ask' %}",#}
-                 url:"{% url 'add_ask' %}",
+                url:"{% url 'org:add_ask' %}",
+{#                 url:"{% url 'add_ask' %}",#}
                 data:$('#jsStayForm').serialize(),
                 async: true,
                 success: function(data) {
